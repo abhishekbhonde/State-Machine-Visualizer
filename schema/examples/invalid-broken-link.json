@@ -1,0 +1,14 @@
+{
+    "id": "brokenMachine",
+    "initial": "start",
+    "states": {
+        "start": {
+            "on": {
+                "NEXT": "middle"
+            }
+        },
+        "end": {
+            "type": "final"
+        }
+    }
+}

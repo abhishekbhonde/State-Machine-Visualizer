@@ -1,0 +1,34 @@
+{
+    "id": "trafficLight",
+    "initial": "red",
+    "context": {
+        "cycles": 0
+    },
+    "states": {
+        "red": {
+            "on": {
+                "TIMER": "green",
+                "POWER_OUTAGE": "flashingRed"
+            }
+        },
+        "green": {
+            "on": {
+                "TIMER": {
+                    "target": "yellow",
+                    "cond": "trafficIsClear"
+                }
+            }
+        },
+        "yellow": {
+            "on": {
+                "TIMER": "red"
+            }
+        },
+        "flashingRed": {
+            "type": "final",
+            "meta": {
+                "description": "Emergency Mode"
+            }
+        }
+    }
+}

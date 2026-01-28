@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #050505;
+  --bg-grid: #0a0a0a;
+  --text-main: #e4e4e7; /* zinc-200 */
+  --text-dim: #71717a; /* zinc-500 */
+  --accent: #22d3ee; /* cyan-400 */
+  --border-color: #27272a; /* zinc-800 */
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow: hidden; /* App-like feel */
+}
+
+code, pre, .mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark); 
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b; 
+}
+
+/* Grid Background Utility */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, #121212 1px, transparent 1px),
+                    linear-gradient(to bottom, #121212 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#27272a 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Glow Utilities */
+.glow-text {
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.glow-border {
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+}
+
+/* React Flow Customization Overrides */
+.react-flow__node {
+  border: none;
+  background: transparent;
+}
+.react-flow__edge-path {
+  stroke: #71717a;
+  stroke-width: 1.5;
+}
+.react-flow__connection-path {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.react-flow__controls-button {
+  background: #18181b;
+  border-bottom: 1px solid #27272a;
+  fill: #a1a1aa;
+}
+.react-flow__controls-button:hover {
+  background: #27272a;
+  fill: white;
+}

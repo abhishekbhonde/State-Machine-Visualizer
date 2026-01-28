@@ -1,0 +1,106 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Finite State Machine Schema",
+    "description": "A schema for defining finite state machines with states, transitions, basic guards, and events.",
+    "type": "object",
+    "required": [
+        "id",
+        "initial",
+        "states"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Unique identifier for the machine"
+        },
+        "initial": {
+            "type": "string",
+            "description": "The ID of the initial state. Must exist as a key in 'states'."
+        },
+        "context": {
+            "type": "object",
+            "description": "Initial extended state (data model) for the machine."
+        },
+        "states": {
+            "type": "object",
+            "description": "Dictionary of state definitions",
+            "patternProperties": {
+                "^[a-zA-Z0-9_]+$": {
+                    "$ref": "#/definitions/state"
+                }
+            },
+            "additionalProperties": false,
+            "minProperties": 1
+        }
+    },
+    "definitions": {
+        "state": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "default",
+                        "final",
+                        "parallel"
+                    ],
+                    "default": "default"
+                },
+                "on": {
+                    "type": "object",
+                    "description": "Map of events to transitions.",
+                    "patternProperties": {
+                        "^[A-Z0-9_]+$": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/definitions/transitionString"
+                                },
+                                {
+                                    "$ref": "#/definitions/transitionObject"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/transitionObject"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "meta": {
+                    "type": "object",
+                    "description": "Metadata for UI (layout, documentation)."
+                }
+            },
+            "additionalProperties": false
+        },
+        "transitionString": {
+            "type": "string",
+            "description": "Target state ID"
+        },
+        "transitionObject": {
+            "type": "object",
+            "required": [
+                "target"
+            ],
+            "properties": {
+                "target": {
+                    "type": "string"
+                },
+                "cond": {
+                    "type": "string",
+                    "description": "Guard condition identifier."
+                },
+                "actions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Side-effect actions to execute."
+                }
+            },
+            "additionalProperties": false
+        }
+    }
+}
