@@ -1,4 +1,3 @@
-// @ts-expect-error - version mismatch in types vs runtime
 import { Panel, Group as PanelGroup, Separator as PanelResizeHandle } from "react-resizable-panels";
 import { EditorPanel } from "./components/editor/EditorPanel";
 import { GraphPanel } from "./components/graph/GraphPanel";
@@ -20,7 +19,7 @@ function App() {
         </header>
 
         <main className="flex-1 overflow-hidden">
-          <PanelGroup direction="horizontal">
+          <PanelGroup orientation="horizontal">
             <Panel defaultSize={30} minSize={20}>
               <EditorPanel />
             </Panel>

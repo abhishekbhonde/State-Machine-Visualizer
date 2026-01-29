@@ -1,5 +1,5 @@
-import { StateMachineGraph, StateID } from "./engine-types";
-import { AnalysisResult } from "./analyzer";
+import type { StateMachineGraph } from "./engine-types";
+import type { AnalysisResult } from "./analyzer";
 import { ParserError } from "./parser";
 
 export type DiagnosticSeverity = 'error' | 'warning' | 'info';

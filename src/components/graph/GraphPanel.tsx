@@ -18,18 +18,6 @@ export const GraphPanel = () => {
         }
     }, [parsed.machine, activeState, setNodes, setEdges]); // Rerender when machine or activeState changes
 
-    // Handle node interactions during simulation
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const onNodeClick = (_: React.MouseEvent, __: Node) => {
-        if (simulate && parsed.machine) {
-            // In a real state machine, we trigger EVENTS, not click states. 
-            // But for visual debugging, maybe we can force state?
-            // For now, let's just stick to the plan: Click EVENT buttons (edges) or simulated controls.
-            // But wait, the edge is the event. 
-            // So we should click the Edge?
-            // Actually, the user flow says: "User clicks an event (e.g. FETCH_SUCCESS)"
-        }
-    };
 
     const onEdgeClick = (_: React.MouseEvent, edge: any) => {
         if (simulate && parsed.machine && activeState) {
@@ -40,8 +28,12 @@ export const GraphPanel = () => {
                 // Edge label is the event
                 const event = edge.label as string;
                 // Verify transition
-                if (currentStateDef.on && currentStateDef.on[event] === edge.target) {
-                    setActiveState(edge.target);
+                if (currentStateDef.on) {
+                    const targetDef = currentStateDef.on[event];
+                    const target = typeof targetDef === 'string' ? targetDef : targetDef.target;
+                    if (target === edge.target) {
+                        setActiveState(target);
+                    }
                 }
             }
         }
@@ -79,7 +71,8 @@ export const GraphPanel = () => {
                                 <button
                                     key={event}
                                     onClick={() => {
-                                        const target = parsed.machine!.states[activeState!].on![event];
+                                        const targetDef = parsed.machine!.states[activeState!].on![event];
+                                        const target = typeof targetDef === 'string' ? targetDef : targetDef.target;
                                         setActiveState(target);
                                     }}
                                     className="bg-zinc-800 hover:bg-zinc-700 text-white text-xs px-4 py-2 rounded shadow-lg border border-zinc-700 transition-all hover:border-primary hover:shadow-[0_0_10px_rgba(34,211,238,0.3)]"

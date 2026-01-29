@@ -1,4 +1,4 @@
-import type { MachineDefinition, StateDefinition, TransitionConfig } from './types';
+import type { MachineDefinition, TransitionConfig } from './types';
 import type {
     StateMachineGraph,
     InternalStateNode,
@@ -8,13 +8,20 @@ import type {
 
 // Structured Error Types
 export class ParserError extends Error {
+    public code: 'INVALID_SCHEMA' | 'INVALID_REFERENCE' | 'MISSING_INITIAL';
+    public details: string;
+    public path?: string[];
+
     constructor(
-        public code: 'INVALID_SCHEMA' | 'INVALID_REFERENCE' | 'MISSING_INITIAL',
-        public details: string,
-        public path?: string[]
+        code: 'INVALID_SCHEMA' | 'INVALID_REFERENCE' | 'MISSING_INITIAL',
+        details: string,
+        path?: string[]
     ) {
         super(details);
         this.name = 'ParserError';
+        this.code = code;
+        this.details = details;
+        this.path = path;
     }
 }
 

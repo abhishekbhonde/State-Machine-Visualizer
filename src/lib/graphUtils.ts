@@ -20,7 +20,8 @@ export const getReachability = (machine: MachineDefinition) => {
         const currentId = queue.shift()!;
         const state = machine.states[currentId];
         if (state && state.on) {
-            Object.values(state.on).forEach(target => {
+            Object.values(state.on).forEach(targetDef => {
+                const target = typeof targetDef === 'string' ? targetDef : targetDef.target;
                 if (!reachable.has(target) && machine.states[target]) {
                     reachable.add(target);
                     queue.push(target);
@@ -111,7 +112,8 @@ export const parseMachineToGraph = (machine: MachineDefinition, activeState: str
         });
 
         if (state.on) {
-            Object.entries(state.on).forEach(([event, target]) => {
+            Object.entries(state.on).forEach(([event, targetDef]) => {
+                const target = typeof targetDef === 'string' ? targetDef : targetDef.target;
                 edges.push({
                     id: `${id}-${event}-${target}`,
                     source: id,

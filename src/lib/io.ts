@@ -1,6 +1,6 @@
-import { StateMachineGraph, StateID } from "./engine-types";
-import { SimulationEngine, SimulationState } from "./simulation";
-import { MachineDefinition, StateDefinition, TransitionConfig } from "./types";
+import type { StateMachineGraph, StateID } from "./engine-types";
+import { SimulationEngine } from "./simulation";
+import type { MachineDefinition, StateDefinition, TransitionConfig } from "./types";
 
 /**
  * Serialized Simulation Data

@@ -1,4 +1,4 @@
-import { parseMachine, ParserError } from "./parser";
+import { parseMachine } from "./parser";
 import { analyzeGraph } from "./analyzer";
 import { SimulationEngine } from "./simulation";
 
